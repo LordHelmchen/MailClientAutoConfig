@@ -161,8 +161,9 @@ class PdoUsernameResolver implements UsernameResolver {
         $username = null;
         
         $pdo = new PDO(sprintf('%s:host=%s;dbname=%s', $this->driver, $this->host, $this->dbname), $this->user, $this->password);
-				foreach ($pdo->query($query) as $row) {
+				foreach ($pdo->query(sprintf($this->query, $request->email)) as $row) {
 					$username = $row[0];
+					break;
 				}
 				$pdo = null;
          
